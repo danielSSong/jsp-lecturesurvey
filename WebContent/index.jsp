@@ -28,9 +28,9 @@
 						Manage
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="#">Login</a>
-						<a class="dropdown-item" href="#">Register</a>
-						<a class="dropdown-item" href="#">Logout</a>
+						<a class="dropdown-item" href="userLogin.jsp">Login</a>
+						<a class="dropdown-item" href="userJoin.jsp">Register</a>
+						<a class="dropdown-item" href="userLogout.jsp">Logout</a>
 					</div>
 				</li>
 			</ul>

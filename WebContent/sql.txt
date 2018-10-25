@@ -1,0 +1,39 @@
+CREATE DATABASE LectureSurvey;
+
+USE LectureSurvey;
+
+CREATE TABLE USER (
+	userID varchar(20),
+	userPassword varchar(64),
+	userEmail varchar(50),
+	userEmailHash varchar(64),
+	userEmailChecked boolean
+);
+
+ALTER TABLE USER ADD PRIMARY KEY (userID);
+
+CREATE TABLE SURVEY (
+	surveyID int PRIMARY KEY AUTO_INCREMENT,
+	userID varchar(20),
+	lectureName varchar(50),
+	professorName varchar(20),
+	lectureYear int,
+	semesterDivide varchar(20),
+	lectureDivide varchar(10),
+	surveyTitle varchar(50),
+	surveyContent varchar(2048),
+	totalScore varchar(5),
+	creditScore varchar(5),
+	comfortableScore varchar(5),
+	lectureScore varchar(5),
+	likeCount int
+);
+
+CREATE TABLE LIKEY (
+	userID varchar(20),
+	surveyID int,
+	userIP varchar(50)
+); 
+
+show tables;
+desc survey;
