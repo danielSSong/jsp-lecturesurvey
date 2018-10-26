@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lecture Survey</title>
+	<title>UTS Lecture Survey</title>
 
 	<!-- bootsrtap css -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -14,13 +14,13 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.jsp">Lecture Survey</a>
+		<a class="navbar-brand" href="index.jsp">UTS Lecture Survey</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 	  		<span class="navbar-toggler-icon"></span>
 		</button>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a class="nav-link" href="index.jsp">Main</a>
 				</li>
 				<li class="nav-item dropdown">
@@ -28,7 +28,7 @@
 						Manage
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="userLogin.jsp">Login</a>
+						<a class="dropdown-item active" href="userLogin.jsp">Login</a>
 						<a class="dropdown-item" href="userJoin.jsp">Register</a>
 						<a class="dropdown-item" href="userLogout.jsp">Logout</a>
 					</div>

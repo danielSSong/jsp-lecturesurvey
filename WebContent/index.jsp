@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lecture Survey</title>
+	<title>UTS Lecture Survey</title>
 
 	<!-- bootsrtap css -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -14,7 +14,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.jsp">Lecture Survey</a>
+		<a class="navbar-brand" href="index.jsp">UTS Lecture Survey</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 	  		<span class="navbar-toggler-icon"></span>
 		</button>

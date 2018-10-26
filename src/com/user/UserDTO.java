@@ -6,14 +6,13 @@ public class UserDTO {
 	private String userPassword;
 	private String userEmail;
 	private String userEmailHash;
-	private String userEmailChecked;
+	private boolean userEmailChecked;
 	
 	public UserDTO() {
 		
 	}
 	
-	public UserDTO(String userID, String userPassword, String userEmail, String userEmailHash,
-			String userEmailChecked) {
+	public UserDTO(String userID, String userPassword, String userEmail, String userEmailHash, boolean userEmailChecked) {
 		super();
 		this.userID = userID;
 		this.userPassword = userPassword;
@@ -46,11 +45,14 @@ public class UserDTO {
 	public void setUserEmailHash(String userEmailHash) {
 		this.userEmailHash = userEmailHash;
 	}
-	public String getUserEmailChecked() {
+
+	public boolean isUserEmailChecked() {
 		return userEmailChecked;
 	}
-	public void setUserEmailChecked(String userEmailChecked) {
+
+	public void setUserEmailChecked(boolean userEmailChecked) {
 		this.userEmailChecked = userEmailChecked;
 	}
+
 	
 }

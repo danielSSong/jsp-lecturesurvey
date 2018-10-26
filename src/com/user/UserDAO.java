@@ -187,7 +187,7 @@ public class UserDAO {
 	}
 	
 	//check specific user email check
-	public boolean setUsserEmailChecked(String userID) {
+	public boolean setUserEmailChecked(String userID) {
 		String SQL = "UPDATE USER SET userEmailChecked = true WHERE userID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
