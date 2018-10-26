@@ -96,64 +96,7 @@
 			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">Register</a>
 			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">Report</a>
 		</form>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">This is Computer&nbsp;<small>Daniel Song</small></div>
-					<div class="col-4 text-right">
-						Score <span style="color: red;">A</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">
-					It is really good lecture.&nbsp;<small>(2017 Spring)</small>
-				</h5>
-				<p class="card-text">I got HD on this subject. WOW</p>
-				<div class="row">
-					<div class="col-9 text-left">
-						Total <span style="color: red;">A</span>
-						Score <span style="color: red;">A</span>
-						Fun <span style="color: red;">A</span>
-						
-						<span style="color: green;">(Like: 15)</span>
-					</div>
-					<div class="col-3 text-right">
-						<a onclick="return confirm('Do you like this content?')" href="./likeAction.jsp?evaluationID=">Like</a>
-						<a onclick="return confirm('Do you delete this content?')" href="./deleteAction.jsp?evaluationID=">Cancel</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">This is Computer&nbsp;<small>Daniel Song</small></div>
-					<div class="col-4 text-right">
-						Score <span style="color: red;">A</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<h5 class="card-title">
-					It is really good lecture.&nbsp;<small>(2017 Spring)</small>
-				</h5>
-				<p class="card-text">I got HD on this subject. WOW</p>
-				<div class="row">
-					<div class="col-9 text-left">
-						Total <span style="color: red;">A</span>
-						Score <span style="color: red;">A</span>
-						Fun <span style="color: red;">A</span>
-						
-						<span style="color: green;">(Like: 15)</span>
-					</div>
-					<div class="col-3 text-right">
-						<a onclick="return confirm('Do you like this content?')" href="./likeAction.jsp?evaluationID=">Like</a>
-						<a onclick="return confirm('Do you delete this content?')" href="./deleteAction.jsp?evaluationID=">Cancel</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
@@ -196,7 +139,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="./evaluationRegisterAction.jsp" method ="post">
+					<form action="./surveyRegisterAction.jsp" method ="post">
 						<div class="form-row">
 							<div class="form-group col-sm-6">
 								<label>Lecture</label>
@@ -204,7 +147,7 @@
 							</div>
 							<div class="form-group col-sm-6">
 								<label>Professor</label>
-								<input type="text" name="lectureName" class="form-control" maxlength="20" />		
+								<input type="text" name="professorName" class="form-control" maxlength="20" />		
 							</div>
 						</div>
 						<div class="form-row">
@@ -245,11 +188,11 @@
 						</div>
 						<div class="form-group">
 							<label>Title</label>
-							<input type="text" name="evaluationTime" class="form-control" maxlength="30" />
+							<input type="text" name="surveyTitle" class="form-control" maxlength="30" />
 						</div>
 						<div class="form-group">
 							<label>Content</label>
-							<textarea name="evaluationContent" class="form-control" maxlength="2048" style="height: 180px"></textarea>
+							<textarea name="surveyContent" class="form-control" maxlength="2048" style="height: 180px"></textarea>
 						</div>
 						<div class="form-row">
 						<div class="form-group col-sm-3">
@@ -276,7 +219,7 @@
 							</div>
 							<div class="form-group col-sm-3">
 								<label>Fun</label>
-								<select name="confortableScore" class="form-control">
+								<select name="comfortableScore" class="form-control">
 									<option value="A" selected>A</option>
 									<option value="B">B</option>
 									<option value="C">C</option>
@@ -299,7 +242,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Register</button>
+							<button type="submit" class="btn btn-primary">Register</button>
 						</div>
 					</form>
 				</div>
