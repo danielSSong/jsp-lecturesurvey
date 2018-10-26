@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,22 @@
 	<link rel="stylesheet" href="./css/custom.css">
 </head>
 <body>
+<% 
+	String userID = null;
+	if(session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	if(userID != null) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('You are logged in')");
+		script.println("location.href = 'index.jsp';");
+		script.println("</script>");
+		script.close();
+		return;
+	}
+	
+%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">UTS Lecture Survey</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -20,7 +38,7 @@
 		</button>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="index.jsp">Main</a>
 				</li>
 				<li class="nav-item dropdown">
@@ -28,9 +46,19 @@
 						Manage
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
+<%
+	if(userID == null) {
+%>
 						<a class="dropdown-item" href="userLogin.jsp">Login</a>
-						<a class="dropdown-item active" href="userJoin.jsp">Register</a>
+						<a class="dropdown-item" href="userJoin.jsp">Register</a>
+						
+<% 
+	} else {
+%>
 						<a class="dropdown-item" href="userLogout.jsp">Logout</a>
+<%
+	}
+%>
 					</div>
 				</li>
 			</ul>

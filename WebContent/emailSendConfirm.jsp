@@ -20,11 +20,11 @@
 	if(session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
-	if(userID != null) {
+	if(userID == null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('You are logged in')");
-		script.println("location.href = 'index.jsp';");
+		script.println("alert('Please login')");
+		script.println("location.href = 'userLogin.jsp';");
 		script.println("</script>");
 		script.close();
 		return;
@@ -70,17 +70,10 @@
 		</div>
 	</nav>
 	<section class="container mt-3" style="max-width: 560px;">
-		<form method="post" action="./userLoginAction.jsp">
-			<div class="form-group">
-				<label>ID</label>
-				<input type="text" name="userID" class="form-control" />				
-			</div>
-			<div class="form-group">
-				<label>Password</label>
-				<input type="password" name="userPassword" class="form-control" />				
-			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
-		</form>
+		<div class="alert alert-warning mt-4" role="alert">
+			You must get the certifiaction. Did you get the email?
+		</div>
+		<a href="emailSendAction.jsp" class="btn btn-primary">re-send Email</a>
 	</section>
 	
 	<footer class="bg-dark mt-4 p-5 text-center" style="color: #FFFFFF">

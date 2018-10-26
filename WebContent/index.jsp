@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="java.io.PrintWriter" %> 
+<%@ page import="com.user.UserDAO" %>
+    
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +18,33 @@
 	<link rel="stylesheet" href="./css/custom.css">
 </head>
 <body>
+
+<% 
+	String userID = null;
+	if(session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+	if(userID == null) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('Please login')");
+		script.println("location.href = 'userLogin.jsp';");
+		script.println("</script>");
+		script.close();
+		return;
+	}
+	
+	boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
+	if(emailChecked == false) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('You must check the certification')");
+		script.println("location.href = 'emailSendConfirm.jsp';");
+		script.println("</script>");
+		script.close();
+		return;
+	}
+%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">UTS Lecture Survey</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -28,9 +60,18 @@
 						Manage
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
+<%
+	if(userID == null) {
+%>
 						<a class="dropdown-item" href="userLogin.jsp">Login</a>
 						<a class="dropdown-item" href="userJoin.jsp">Register</a>
+<% 
+	} else {
+%>
 						<a class="dropdown-item" href="userLogout.jsp">Logout</a>
+<%
+	}
+%>
 					</div>
 				</li>
 			</ul>

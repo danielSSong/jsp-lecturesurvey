@@ -7,31 +7,15 @@
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String userID = null;
-	if(session.getAttribute("userID") != null) {
-		userID = (String) session.getAttribute("userID");
-	}
-	if(userID != null) {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('You are logged in')");
-		script.println("location.href = 'index.jsp';");
-		script.println("</script>");
-		script.close();
-		return;
-	}
 	String userPassword = null;
-	String userEmail = null;
 	if(request.getParameter("userID") != null) {
 		userID = request.getParameter("userID");
 	}
 	if(request.getParameter("userPassword") != null) {
 		userPassword = request.getParameter("userPassword");
 	}
-	if(request.getParameter("userEmail") != null) {
-		userEmail = request.getParameter("userEmail");
-	}
-	
-	if(userID == null || userPassword == null || userEmail == null) {
+
+	if(userID == null || userPassword == null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('There is a blank on fields')");
@@ -41,20 +25,36 @@
 		return;
 	}
 	UserDAO userDAO = new UserDAO();
-	int result = userDAO.join(new UserDTO(userID, userPassword, userEmail, SHA256.getSHA256(userEmail), false));
-	if (result == -1) {
+	int result = userDAO.login(userID, userPassword);
+	if (result == 1) {
+		session.setAttribute("userID", userID);
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('This id is already existed')");
+		script.println("location.href = 'index.jsp'");
+		script.println("</script>");
+		script.close();
+		return;
+	} else if (result == 0) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('Wrong password')");
 		script.println("history.back();");
 		script.println("</script>");
 		script.close();
 		return;
-	} else {
-		session.setAttribute("userID", userID);
+	} else if (result == -1) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("location.href = 'emailSendAction.jsp'");
+		script.println("alert('This id is not existed')");
+		script.println("history.back();");
+		script.println("</script>");
+		script.close();
+		return;
+	} else if (result == -2) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('Database error')");
+		script.println("history.back();");
 		script.println("</script>");
 		script.close();
 		return;
