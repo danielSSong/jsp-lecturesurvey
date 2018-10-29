@@ -37,6 +37,7 @@
 		script.println("location.href = 'index.jsp'");
 		script.println("</script>");
 		script.close();
+		return;
 	}
 	
 	String host = "http://localhost:8090/LectureSurvey/";
@@ -78,6 +79,7 @@
 		script.println("history.back();");
 		script.println("</script>");
 		script.close();
+		return;
 	}
 	 
 %>     
