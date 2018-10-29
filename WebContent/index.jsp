@@ -154,11 +154,11 @@
 						FUN <span style="color: red;"><%= survey.getComfortableScore() %></span>
 						Lecture <span style="color: red;"><%= survey.getLectureScore() %></span>
 						
-						<span style="color: green;">(<%= survey.getLikeCount() %>)</span>
+						<span style="color: green;">(LIKE: <%= survey.getLikeCount() %>)</span>
 					</div>
 					<div class="col-3 text-right">
-						<a onclick="return confirm('Do you like this content?')" href="./likeAction.jsp?evaluationID=">Like</a>
-						<a onclick="return confirm('Do you delete this content?')" href="./deleteAction.jsp?evaluationID=">Cancel</a>
+						<a onclick="return confirm('Do you like this content?')" href="./likeyAction.jsp?surveyID=<%= survey.getSurveyID() %>">Like</a>
+						<a onclick="return confirm('Do you delete this content?')" href="./deleteAction.jsp?surveyID=<%= survey.getSurveyID() %>">Delete</a>
 					</div>
 				</div>
 			</div>

@@ -35,5 +35,7 @@ CREATE TABLE LIKEY (
 	userIP varchar(50)
 ); 
 
+ALTER TABLE LIKEY ADD PRIMARY KEY (userID, surveyID);
+
 show tables;
 desc survey;
