@@ -3,6 +3,10 @@
     
 <%@ page import="java.io.PrintWriter" %> 
 <%@ page import="com.user.UserDAO" %>
+<%@ page import="com.survey.SurveyDAO" %>
+<%@ page import="com.survey.SurveyDTO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
     
    
 <!DOCTYPE html>
@@ -20,6 +24,27 @@
 <body>
 
 <% 
+	request.setCharacterEncoding("UTF-8");
+	String lectureDivide = "ALL";
+	String searchType = "Latest";
+	String search = "";
+	int pageNumber = 0; 
+	if(request.getParameter("lectureDivide") != null) {
+		lectureDivide = request.getParameter("lectureDivide");
+	}
+	if(request.getParameter("searchType") != null) {
+		searchType = request.getParameter("searchType");
+	}
+	if(request.getParameter("search") != null) {
+		search = request.getParameter("search");
+	}
+	if(request.getParameter("pageNumber") != null) {
+		try { 
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		} catch (Exception e) {
+			System.out.println("Search Error");
+		}
+	}
 	String userID = null;
 	if(session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
@@ -76,8 +101,8 @@
 				</li>
 			</ul>
 			
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="search" />				 
+			<form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+				<input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="search" />				 
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
@@ -87,9 +112,13 @@
 		<form method="get" action="./index.jsp" class="form-inline mt-3">
 			<select name="lectureDivide" class="form-control mx-1 mt-2">
 				<option value="ALL">ALL</option>
-				<option value="Major">Major</option>
-				<option value="Sub">Sub_Major</option>
-				<option value="Elective">Elective</option>
+				<option value="Major" <% if(lectureDivide.equals("Major")) out.println("selected"); %>>Major</option>
+				<option value="Sub" <% if(lectureDivide.equals("Sub")) out.print("selected"); %>>Sub</option>
+				<option value="Elective" <% if(lectureDivide.equals("Elective")) out.println("selected"); %>>Elective</option>
+			</select>
+			<select name="searchType" class="form-control mx-1 mt-2">
+				<option value="Latest">Latest</option>
+				<option value="Like" <% if(searchType.equals("Like")) out.println("selected"); %>>Like</option>
 			</select>
 			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="please input the content" />
 			<button type="submit" class="btn btn-primary mx-1 mt-2">Search</button>
@@ -97,27 +126,35 @@
 			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">Report</a>
 		</form>
 		
+<%
+	ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
+	surveyList = new SurveyDAO().getList(lectureDivide, searchType, search, pageNumber);
+	if(surveyList != null) 
+		for(int i = 0; i < surveyList.size(); i++) {
+			if(i == 5) break;
+			SurveyDTO survey = surveyList.get(i);
+%>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
-					<div class="col-8 text-left">This is Computer&nbsp;<small>Daniel Song</small></div>
+					<div class="col-8 text-left"><%= survey.getLectureName() %>&nbsp;<small><%= survey.getProfessorName() %></small></div>
 					<div class="col-4 text-right">
-						Score <span style="color: red;">A</span>
+						Score <span style="color: red;"><%= survey.getTotalScore() %></span>
 					</div>
 				</div>
 			</div>
 			<div class="card-body">
 				<h5 class="card-title">
-					It is really good lecture.&nbsp;<small>(2017 Spring)</small>
+					<%= survey.getSurveyTitle() %>&nbsp;<small>(<%= survey.getLectureYear() %>, <%= survey.getSemesterDivide() %>)</small>
 				</h5>
-				<p class="card-text">I got HD on this subject. WOW</p>
+				<p class="card-text"><%= survey.getSurveyContent() %></p>
 				<div class="row">
 					<div class="col-9 text-left">
-						Total <span style="color: red;">A</span>
-						Score <span style="color: red;">A</span>
-						Fun <span style="color: red;">A</span>
+						Credit <span style="color: red;"><%= survey.getCreditScore() %></span>
+						FUN <span style="color: red;"><%= survey.getComfortableScore() %></span>
+						Lecture <span style="color: red;"><%= survey.getLectureScore() %></span>
 						
-						<span style="color: green;">(Like: 15)</span>
+						<span style="color: green;">(<%= survey.getLikeCount() %>)</span>
 					</div>
 					<div class="col-3 text-right">
 						<a onclick="return confirm('Do you like this content?')" href="./likeAction.jsp?evaluationID=">Like</a>
@@ -126,9 +163,42 @@
 				</div>
 			</div>
 		</div>
+		
+<% 
+	}
+%>
+
 	</section>
 	
-	
+	<ul class="pagination justify-content-center mt-3">
+		<li class="page-item">
+<%
+	if(pageNumber <= 0) {
+%>
+	<a class="page-link disabled">Before</a>
+<%
+	} else {
+%>
+	<a class="page-link" href="./index.jsp?lectureDivide=<%= URLEncoder.encode(lectureDivide, "UTF-8") %>&searchType=<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=<%= pageNumber - 1 %>">Before</a>
+<%
+	}
+%>
+		</li>
+		<li>
+<%
+	if(surveyList.size() < 6) {
+%>
+	<a class="page-link disabled">Next</a>
+<%
+	} else {
+%>
+	<a class="page-link" href="./index.jsp?lectureDivide=<%= URLEncoder.encode(lectureDivide, "UTF-8") %>&searchType=<%= URLEncoder.encode(searchType, "UTF-8") %>&search=<%= URLEncoder.encode(search, "UTF-8") %>&pageNumber=<%= pageNumber + 1 %>">Next</a>
+<%
+	}
+%>
+		
+		</li>
+	</ul>
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -181,7 +251,7 @@
 								<label>Lecture</label>
 								<select name="lectureDivide" class="form-control">
 									<option value="Major" selected>Major</option>
-									<option value="Sub_Major">Sub_Major</option>
+									<option value="Sub">Sub_Major</option>
 									<option value="Elective">Elective</option>
 								</select>
 							</div> 

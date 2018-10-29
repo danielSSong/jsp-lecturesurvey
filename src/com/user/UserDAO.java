@@ -21,7 +21,7 @@ public class UserDAO {
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				if(rs.getString(1).equals(userPassword)) {
 					return 1; //login success
 				} else {
