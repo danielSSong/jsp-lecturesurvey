@@ -19,18 +19,18 @@ public class SurveyDAO {
 		try {
 			conn = DatabaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, surveyDTO.getUserID());
-			pstmt.setString(2, surveyDTO.getLectureName());
-			pstmt.setString(3, surveyDTO.getProfessorName());
+			pstmt.setString(1, surveyDTO.getUserID().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(2, surveyDTO.getLectureName().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, surveyDTO.getProfessorName().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
 			pstmt.setInt(4, surveyDTO.getLectureYear());
-			pstmt.setString(5, surveyDTO.getSemesterDivide());
-			pstmt.setString(6, surveyDTO.getLectureDivide());
-			pstmt.setString(7, surveyDTO.getSurveyTitle());
-			pstmt.setString(8, surveyDTO.getSurveyContent());
-			pstmt.setString(9, surveyDTO.getTotalScore());
-			pstmt.setString(10, surveyDTO.getCreditScore());
-			pstmt.setString(11, surveyDTO.getComfortableScore());
-			pstmt.setString(12, surveyDTO.getLectureScore());
+			pstmt.setString(5, surveyDTO.getSemesterDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, surveyDTO.getLectureDivide().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(7, surveyDTO.getSurveyTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(8, surveyDTO.getSurveyContent().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(9, surveyDTO.getTotalScore().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(10, surveyDTO.getCreditScore().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(11, surveyDTO.getComfortableScore().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
+			pstmt.setString(12, surveyDTO.getLectureScore().replaceAll("<", "&lt;").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
 
 			return pstmt.executeUpdate();
 
